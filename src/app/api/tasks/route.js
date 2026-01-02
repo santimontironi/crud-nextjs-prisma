@@ -3,8 +3,8 @@ import {prisma} from "@/libs/prisma";
 
 export async function GET() {
   try {
-    const tasks = await prisma.task.findMany();
-    return NextResponse.json({tasks: tasks}, { status: 200 });
+    const tasks = await prisma.task.findMany({orderBy: { createdAt: 'desc' }});
+    return NextResponse.json({ tasks }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Error al obtener las tareas", error: error.message },

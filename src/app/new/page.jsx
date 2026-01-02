@@ -4,16 +4,20 @@ import { useForm } from 'react-hook-form';
 import { useContext } from 'react';
 import { TaskContext } from '@/context/TaskContext';
 import Loader from '../components/Loader';
+import { useRouter } from 'next/navigation';
 
 const NewTaskPage = () => {
   const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
   const { createTask, loading } = useContext(TaskContext);
 
+  const router = useRouter();
+
   async function submitForm(data) {
     try {
       await createTask(data);
       reset();
+      router.push('/tasks');
     }
     catch (error) {
       console.error("Error creando tarea:", error);

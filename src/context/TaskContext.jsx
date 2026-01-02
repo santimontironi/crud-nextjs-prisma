@@ -26,8 +26,8 @@ export const TaskProvider = ({ children }) => {
         }
         finally {
             setTimeout(() => {
-                setLoading({ ...loading, add: false });
-            }, 1500);
+                setLoading((prev) => ({ ...prev, add: false }));
+            }, 2500);
         }
     }
 
@@ -42,8 +42,8 @@ export const TaskProvider = ({ children }) => {
             }
             finally {
                 setTimeout(() => {
-                    setLoading({ ...loading, get: false });
-                }, 1500);
+                    setLoading((prev) => ({ ...prev, get: false }));
+                }, 2500);
             }
         }
 
