@@ -4,10 +4,25 @@ import { useContext } from "react"
 import { TaskContext } from "@/context/TaskContext";
 import Loader from "../components/Loader";
 import TaskItem from "../components/TaskItem";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
 
 const TasksPage = () => {
 
-    const { tasks, loading } = useContext(TaskContext);
+    const { tasks, loading, deleteTask } = useContext(TaskContext);
+
+    const handleDelete = (id) => {
+        toast("¿Eliminar esta tarea?", {
+            action: {
+                label: "Eliminar",
+                onClick: () => deleteTask(id),
+            },
+            cancel: {
+                label: "Cancelar",
+            },
+        });
+    };
+
 
     return (
         <section className="min-h-screen bg-linear-to-br from-black via-stone-900 to-black py-12 px-6">
@@ -53,13 +68,15 @@ const TasksPage = () => {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {tasks.map((task) => (
-                                    <TaskItem key={task.id} task={task} />
+                                    <TaskItem key={task.id} task={task} onDelete={handleDelete} />
                                 ))}
                             </div>
                         )}
                     </div>
                 )}
             </div>
+
+            <Toaster richColors position="top-center" />
         </section>
     )
 }

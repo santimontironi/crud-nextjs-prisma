@@ -15,3 +15,7 @@ export const getTasks = async () => {
 export const getTaskById = async (id) => {
     return await apiUrl.get(`/tasks/${id}`);
 }
+
+export const deleteTaskById = async (id) => {
+    return await apiUrl.delete(`/tasks/${id}`);
+}

@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useState, useEffect } from "react"
-import { addTask, getTasks, getTaskById } from "@/services/api";
+import { addTask, getTasks, getTaskById, deleteTaskById } from "@/services/api";
 
 export const TaskContext = createContext();
 
@@ -10,7 +10,6 @@ export const TaskProvider = ({ children }) => {
     const [task, setTask] = useState([]);
     const [loading, setLoading] = useState({
         add: false,
-        delete: false,
         get: true,
         getById: true,
         patch: false
@@ -68,8 +67,18 @@ export const TaskProvider = ({ children }) => {
         }
     }
 
+    async function deleteTask(id) {
+        try {
+            await deleteTaskById(id);
+            setTasks((prev) => prev.filter((task) => task.id !== id));
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
     return (
-        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task }}>
+        <TaskContext.Provider value={{ tasks, createTask, loading, taskById, task, deleteTask }}>
             {children}
         </TaskContext.Provider>
     )
