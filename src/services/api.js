@@ -23,3 +23,11 @@ export const deleteTaskById = async (id) => {
 export const updateTaskById = async (id, updatedTask) => {
     return await apiUrl.patch(`/tasks/${id}`, updatedTask);
 }
+
+export const loginUser = async (credentials) => {
+    return await apiUrl.post('/auth/login', credentials);
+}
+
+export const registerUser = async (userData) => {
+    return await apiUrl.post('/auth/register', userData);
+}
