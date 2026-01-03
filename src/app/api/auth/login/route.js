@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
@@ -34,9 +34,11 @@ export const POST = async (request) => {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
         });
 
-        const response = NextResponse.json(existingUser, { status: 200 });
+        const response = NextResponse.json({user: existingUser}, { status: 200 });
 
         response.headers.set("Set-Cookie", cookieSerialized);
+
+        return response;
     }
     catch (error) {
         return NextResponse.json({ message: 'Error al crear el usuario', error: error.message }, { status: 500 });
