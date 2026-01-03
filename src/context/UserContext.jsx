@@ -34,7 +34,7 @@ export const UserProvider = ({ children }) => {
             await registerUser(data);
         }
         catch(error){
-            console.log("Error al registrar el usuario:", error);
+            throw error;
         }
         finally{
             setTimeout(() => {
